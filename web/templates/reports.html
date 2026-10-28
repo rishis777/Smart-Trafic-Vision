@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Traffic Intelligence Audit & Reports - AI Traffic Management{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.75rem;">
+    <div>
+        <h1 style="font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em;">Traffic Analytics & Audit Reports</h1>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Historical volume trends, signal performance, and machine learning bottleneck forecasts.</p>
+    </div>
+
+    <!-- Export Buttons -->
+    <div style="display: flex; gap: 0.75rem;">
+        <button onclick="downloadReport('csv')" class="btn btn-outline">
+            <span>📥 Export CSV</span>
+        </button>
+        <button onclick="downloadReport('pdf')" class="btn btn-primary">
+            <span>📄 Export Formal PDF</span>
+        </button>
+    </div>
+</div>
+
+<!-- KPI Cards -->
+<div class="stats-grid">
+    <div class="glass-panel stat-card">
+        <div class="stat-title">Total Vehicles Logged</div>
+        <div class="stat-value">{{ report_data.metrics.total_vehicles }}</div>
+        <div class="stat-meta"><span>Past {{ report_data.period_days }} days</span></div>
+    </div>
+    <div class="glass-panel stat-card">
+        <div class="stat-title">Avg Historical Density</div>
+        <div class="stat-value">{{ (report_data.metrics.avg_density * 100)|round|int }}%</div>
+        <div class="stat-meta"><span>Aggregated across approaches</span></div>
+    </div>
+    <div class="glass-panel stat-card">
+        <div class="stat-title">Average Wait Delay</div>
+        <div class="stat-value">{{ report_data.metrics.avg_wait_time_sec }}s</div>
+        <div class="stat-meta"><span>Vehicle queue delay</span></div>
+    </div>
+    <div class="glass-panel stat-card">
+        <div class="stat-title">Flagged Violations</div>
+        <div class="stat-value" style="color: var(--accent-rose);">{{ report_data.metrics.total_violations }}</div>
+        <div class="stat-meta"><span>For human officer audit</span></div>
+    </div>
+</div>
+
+<!-- ML Congestion Hotspot Forecasts -->
+<div class="glass-panel" style="padding: 1.5rem; margin-bottom: 1.75rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff;">ML Congestion Bottleneck Hotspots (Scikit-Learn Forecast)</h3>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">Identified high-probability congestion windows derived from time-series history.</p>
+        </div>
+        <span class="role-badge" style="background: rgba(139, 92, 246, 0.15); color: var(--accent-purple);">Predictive AI</span>
+    </div>
+
+    <div class="data-table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Day of Week</th>
+                    <th>Peak Hour Window</th>
+                    <th>Corridor Direction</th>
+                    <th>Forecasted Density</th>
+                    <th>Severity Level</th>
+                    <th>Autonomous Recommendation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in hotspots %}
+                <tr>
+                    <td><strong>{{ h.day }}</strong></td>
+                    <td style="font-family: 'JetBrains Mono', monospace;">{{ h.hour_window }}</td>
+                    <td>{{ h.direction }}</td>
+                    <td style="font-family: 'JetBrains Mono', monospace;">{{ (h.expected_density * 100)|round|int }}%</td>
+                    <td><span class="badge-density {{ h.level }}">{{ h.level }}</span></td>
+                    <td style="font-size: 0.8rem; color: var(--text-secondary);">Preemptively allocate +15s green phase</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No congestion bottlenecks predicted for upcoming periods.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Recent Traffic Data Log Table -->
+<div class="glass-panel" style="padding: 1.5rem;">
+    <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">Recent Traffic Sensor Observations</h3>
+    <div class="data-table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Approach</th>
+                    <th>Vehicle Count</th>
+                    <th>Density Level</th>
+                    <th>Average Speed</th>
+                    <th>Queue Length</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in report_data.recent_traffic[:20] %}
+                <tr>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">{{ row.timestamp[:19] }}</td>
+                    <td><strong>{{ row.direction }}</strong></td>
+                    <td>{{ row.vehicle_count }} vehicles</td>
+                    <td><span class="badge-density {{ row.density_level }}">{{ row.density_level }} ({{ (row.density * 100)|round|int }}%)</span></td>
+                    <td>{{ row.avg_speed }} km/h</td>
+                    <td>{{ row.queue_length }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No historical records found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    async function downloadReport(format) {
+        try {
+            const res = await fetch('/api/reports/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ format: format, days: 3 })
+            });
+            const data = await res.json();
+            if (data.download_url) {
+                window.location.href = data.download_url;
+            } else {
+                alert(data.error || 'Failed to generate report');
+            }
+        } catch (e) {
+            alert('Error generating report: ' + e);
+        }
+    }
+</script>
+{% endblock %}

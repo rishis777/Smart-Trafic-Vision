@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database and runtime outputs
+data/*.db
+data/*.sqlite3
+data/snapshots/*
+!data/snapshots/.gitkeep
+data/screenshots/*
+!data/screenshots/.gitkeep
+data/exports/*
+!data/exports/.gitkeep
+
+# IDE and OS
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Environment / Secrets
+.env
+.env.*
+!.env.example

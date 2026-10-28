@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}System Administration Portal - AI Traffic Management{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.75rem;">
+    <div>
+        <h1 style="font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em;">System Administration Portal</h1>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Manage user accounts, RBAC roles, surveillance cameras, and database snapshots.</p>
+    </div>
+    <form action="{{ url_for('admin_backup') }}" method="POST">
+        <button type="submit" class="btn btn-outline">💾 Create Database Backup</button>
+    </form>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+    <!-- User Management Table -->
+    <div class="glass-panel" style="padding: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">System User Directory (RBAC)</h3>
+        <div class="data-table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Access Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr>
+                        <td style="font-family: 'JetBrains Mono', monospace;">#{{ u.id }}</td>
+                        <td><strong>{{ u.username }}</strong></td>
+                        <td style="color: var(--text-secondary);">{{ u.email }}</td>
+                        <td><span class="role-badge {{ u.role }}">{{ u.role }}</span></td>
+                        <td><span style="color: var(--accent-emerald); font-weight: 600;">Active</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Create User Form -->
+    <div class="glass-panel" style="padding: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">Provision New User</h3>
+        <form action="{{ url_for('admin_create_user') }}" method="POST">
+            <div class="control-group">
+                <label class="control-label">Username</label>
+                <input type="text" name="username" required style="width: 100%; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); color: #fff; padding: 0.6rem; border-radius: var(--radius-sm);">
+            </div>
+            <div class="control-group">
+                <label class="control-label">Email Address</label>
+                <input type="email" name="email" required style="width: 100%; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); color: #fff; padding: 0.6rem; border-radius: var(--radius-sm);">
+            </div>
+            <div class="control-group">
+                <label class="control-label">Password</label>
+                <input type="password" name="password" required style="width: 100%; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); color: #fff; padding: 0.6rem; border-radius: var(--radius-sm);">
+            </div>
+            <div class="control-group">
+                <label class="control-label">Role Assignment</label>
+                <select name="role" style="width: 100%; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); color: #fff; padding: 0.6rem; border-radius: var(--radius-sm);">
+                    <option value="control_operator">control_operator</option>
+                    <option value="traffic_police">traffic_police</option>
+                    <option value="authority">authority</option>
+                    <option value="road_user">road_user</option>
+                    <option value="admin">admin</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Create User Account</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

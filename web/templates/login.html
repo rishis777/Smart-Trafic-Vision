@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In - Authorized Operations Console{% endblock %}
+
+{% block content %}
+<div style="max-width: 480px; margin: 2.5rem auto;">
+    <!-- Public Commuter Notice (No Login Required) -->
+    <div style="background: rgba(6, 182, 212, 0.12); border: 1px solid rgba(6, 182, 212, 0.35); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.5rem;">🚗</span>
+            <div>
+                <div style="font-size: 0.85rem; font-weight: 700; color: #fff;">Looking for Public Traffic Status?</div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary);">No login is needed for commuters & citizens.</div>
+            </div>
+        </div>
+        <a href="{{ url_for('public_view') }}" class="btn btn-outline" style="border-color: var(--accent-cyan); color: var(--accent-cyan); padding: 0.35rem 0.75rem; font-size: 0.8rem; white-space: nowrap;">
+            Public Advisory &rarr;
+        </a>
+    </div>
+
+    <div class="glass-panel" style="padding: 2.5rem 2rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🚦</div>
+            <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff; letter-spacing: -0.02em;">Authorized Operations Console</h2>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Restricted to certified Traffic Control, Law Enforcement, and System Administrators.</p>
+        </div>
+
+        <form action="{{ url_for('login_view') }}" method="POST">
+            <div class="control-group">
+                <label class="control-label">Username</label>
+                <input type="text" id="usernameInput" name="username" required value="operator" style="width: 100%; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); color: #fff; padding: 0.7rem; border-radius: var(--radius-sm); font-size: 0.9rem;">
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Password</label>
+                <input type="password" id="passwordInput" name="password" required value="Operator@123" style="width: 100%; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); color: #fff; padding: 0.7rem; border-radius: var(--radius-sm); font-size: 0.9rem;">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; margin-top: 1rem; font-size: 0.95rem;">
+                Sign In to Console
+            </button>
+        </form>
+
+        <!-- Viva & Demo Quick Credentials Preset Buttons (Citizen/Road User removed) -->
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem; text-align: center;">Official Personnel Presets (Viva / Demo)</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+                <button type="button" onclick="fillCreds('operator', 'Operator@123')" class="role-badge control_operator" style="cursor: pointer; border: 1px solid rgba(6,182,212,0.4);">Control Operator</button>
+                <button type="button" onclick="fillCreds('police', 'Police@123')" class="role-badge traffic_police" style="cursor: pointer; border: 1px solid rgba(245,158,11,0.4);">Traffic Police</button>
+                <button type="button" onclick="fillCreds('authority', 'Authority@123')" class="role-badge authority" style="cursor: pointer; border: 1px solid rgba(139,92,246,0.4);">City Authority</button>
+                <button type="button" onclick="fillCreds('admin', 'Admin@123')" class="role-badge admin" style="cursor: pointer; border: 1px solid rgba(244,63,94,0.4);">System Admin</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function fillCreds(u, p) {
+        document.getElementById('usernameInput').value = u;
+        document.getElementById('passwordInput').value = p;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+
+{% block title %}City Urban Mobility Advisory - Real-Time Commuter Portal{% endblock %}
+
+{% block content %}
+<div style="max-width: 1300px; margin: 0 auto;">
+    <!-- Top Header & Weather/Condition Bar -->
+    <div style="background: linear-gradient(135deg, rgba(17, 23, 38, 0.9), rgba(15, 23, 42, 0.95)); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2rem; position: relative; overflow: hidden;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: gap: 1.5rem;">
+            <div>
+                <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); margin-bottom: 0.75rem;">
+                    <span style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e;"></span>
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">PUBLIC COMMUTER LIVE TELEMETRY</span>
+                </div>
+                <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; color: #fff; margin-bottom: 0.5rem;">
+                    Metropolitan Traffic & Mobility Advisory
+                </h1>
+                <p style="color: var(--text-secondary); max-width: 700px; font-size: 0.95rem;">
+                    Real-time intersection telemetry, automated signal countdowns, and corridor travel time estimates powered by autonomous computer vision. No sign-in required for public access.
+                </p>
+            </div>
+
+            <!-- Environmental Telemetry Box -->
+            <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem 1.25rem; min-width: 260px;">
+                <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">ENVIRONMENTAL STATUS</div>
+                <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem;">
+                    <span style="font-size: 1.2rem;">☀️</span>
+                    <div>
+                        <div style="font-size: 0.85rem; font-weight: 700; color: #fff;">Clear &bull; 28°C</div>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary);">Dry Roadway &bull; Visibility: 10 km</div>
+                    </div>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 600; margin-top: 0.4rem;">
+                    ● AI Adaptive Signal Optimization Active
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Commute Travel Times (ETAs) -->
+    <div style="margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Major Arterial Corridor Travel Times (Live ETAs)</h3>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Updated every 3 seconds</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+            <!-- Route 1 -->
+            <div class="glass-panel" style="padding: 1.25rem; border-left: 4px solid var(--signal-green);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">CORRIDOR A</div>
+                        <div style="font-size: 1rem; font-weight: 800; color: #fff; margin: 0.2rem 0;">North Arterial &rarr; Downtown Hub</div>
+                    </div>
+                    <span class="badge-density LOW">Optimal</span>
+                </div>
+                <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.75rem;">
+                    <span style="font-size: 1.6rem; font-weight: 800; color: #fff; font-family: 'JetBrains Mono', monospace;">9 mins</span>
+                    <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 600;">Normal Flow (+0m delay)</span>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.35rem;">Average Corridor Speed: <strong>48 km/h</strong></div>
+            </div>
+
+            <!-- Route 2 -->
+            <div class="glass-panel" style="padding: 1.25rem; border-left: 4px solid var(--accent-amber);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">CORRIDOR B</div>
+                        <div style="font-size: 1rem; font-weight: 800; color: #fff; margin: 0.2rem 0;">South Highway &rarr; Financial District</div>
+                    </div>
+                    <span class="badge-density MODERATE">Moderate</span>
+                </div>
+                <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.75rem;">
+                    <span style="font-size: 1.6rem; font-weight: 800; color: #fff; font-family: 'JetBrains Mono', monospace;">16 mins</span>
+                    <span style="font-size: 0.75rem; color: var(--accent-amber); font-weight: 600;">Queuing (+4m delay)</span>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.35rem;">Average Corridor Speed: <strong>32 km/h</strong></div>
+            </div>
+
+            <!-- Route 3 -->
+            <div class="glass-panel" style="padding: 1.25rem; border-left: 4px solid var(--signal-green);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">CORRIDOR C</div>
+                        <div style="font-size: 1rem; font-weight: 800; color: #fff; margin: 0.2rem 0;">East Bypass &rarr; Transit Terminal</div>
+                    </div>
+                    <span class="badge-density LOW">Optimal</span>
+                </div>
+                <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.75rem;">
+                    <span style="font-size: 1.6rem; font-weight: 800; color: #fff; font-family: 'JetBrains Mono', monospace;">7 mins</span>
+                    <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 600;">Free Flow (On schedule)</span>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.35rem;">Average Corridor Speed: <strong>52 km/h</strong></div>
+            </div>
+
+            <!-- Route 4 -->
+            <div class="glass-panel" style="padding: 1.25rem; border-left: 4px solid var(--signal-green);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div>
+                        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">CORRIDOR D</div>
+                        <div style="font-size: 1rem; font-weight: 800; color: #fff; margin: 0.2rem 0;">West Outer Ring &rarr; Tech Park</div>
+                    </div>
+                    <span class="badge-density LOW">Optimal</span>
+                </div>
+                <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.75rem;">
+                    <span style="font-size: 1.6rem; font-weight: 800; color: #fff; font-family: 'JetBrains Mono', monospace;">11 mins</span>
+                    <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 600;">Smooth Transit (+0m delay)</span>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.35rem;">Average Corridor Speed: <strong>46 km/h</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Intersection Status & Pedestrian Signal Countdown -->
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+        <!-- Left: Approach Cards with Live Lights -->
+        <div class="glass-panel" style="padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                <div>
+                    <h3 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Intersection #01: Central Arterial Crossing</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary);">Real-time approach lights, queue length, and pedestrian crossing readiness.</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--bg-surface-elevated); padding: 0.4rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Active Phase:</span>
+                    <span id="pubActivePhase" style="font-weight: 800; color: var(--signal-green);">NORTH</span>
+                </div>
+            </div>
+
+            <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 0;">
+                <!-- NORTH -->
+                <div class="approach-card" id="pubCard_NORTH" style="background: rgba(255,255,255,0.02); text-align: center;">
+                    <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary);">NORTHBOUND</div>
+                    <div class="traffic-light-housing" style="margin: 0.5rem auto;">
+                        <div id="pubLight_NORTH_red" class="light-bulb red active"></div>
+                        <div id="pubLight_NORTH_yellow" class="light-bulb yellow"></div>
+                        <div id="pubLight_NORTH_green" class="light-bulb green"></div>
+                    </div>
+                    <span id="pubLvl_NORTH" class="badge-density LOW">LOW</span>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Queued: <b id="pubVeh_NORTH" style="color: #fff;">0</b> veh</div>
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">Avg: <b id="pubSpeed_NORTH">42</b> km/h</div>
+                </div>
+
+                <!-- SOUTH -->
+                <div class="approach-card" id="pubCard_SOUTH" style="background: rgba(255,255,255,0.02); text-align: center;">
+                    <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary);">SOUTHBOUND</div>
+                    <div class="traffic-light-housing" style="margin: 0.5rem auto;">
+                        <div id="pubLight_SOUTH_red" class="light-bulb red active"></div>
+                        <div id="pubLight_SOUTH_yellow" class="light-bulb yellow"></div>
+                        <div id="pubLight_SOUTH_green" class="light-bulb green"></div>
+                    </div>
+                    <span id="pubLvl_SOUTH" class="badge-density LOW">LOW</span>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Queued: <b id="pubVeh_SOUTH" style="color: #fff;">0</b> veh</div>
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">Avg: <b id="pubSpeed_SOUTH">45</b> km/h</div>
+                </div>
+
+                <!-- EAST -->
+                <div class="approach-card" id="pubCard_EAST" style="background: rgba(255,255,255,0.02); text-align: center;">
+                    <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary);">EASTBOUND</div>
+                    <div class="traffic-light-housing" style="margin: 0.5rem auto;">
+                        <div id="pubLight_EAST_red" class="light-bulb red active"></div>
+                        <div id="pubLight_EAST_yellow" class="light-bulb yellow"></div>
+                        <div id="pubLight_EAST_green" class="light-bulb green"></div>
+                    </div>
+                    <span id="pubLvl_EAST" class="badge-density LOW">LOW</span>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Queued: <b id="pubVeh_EAST" style="color: #fff;">0</b> veh</div>
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">Avg: <b id="pubSpeed_EAST">38</b> km/h</div>
+                </div>
+
+                <!-- WEST -->
+                <div class="approach-card" id="pubCard_WEST" style="background: rgba(255,255,255,0.02); text-align: center;">
+                    <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary);">WESTBOUND</div>
+                    <div class="traffic-light-housing" style="margin: 0.5rem auto;">
+                        <div id="pubLight_WEST_red" class="light-bulb red active"></div>
+                        <div id="pubLight_WEST_yellow" class="light-bulb yellow"></div>
+                        <div id="pubLight_WEST_green" class="light-bulb green"></div>
+                    </div>
+                    <span id="pubLvl_WEST" class="badge-density LOW">LOW</span>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Queued: <b id="pubVeh_WEST" style="color: #fff;">0</b> veh</div>
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">Avg: <b id="pubSpeed_WEST">40</b> km/h</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Pedestrian Crossing & Signal Countdown Box -->
+        <div class="glass-panel" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">SIGNAL CYCLE COUNTDOWN</div>
+                <div id="pubCycleTimer" style="font-size: 2.8rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: var(--accent-cyan); margin: 0.5rem 0;">
+                    --s
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                    Next Phase: <strong id="pubNextPhase" style="color: #fff;">EAST</strong>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 1rem; margin-top: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                    <span style="font-size: 1.1rem;">🚶</span>
+                    <span style="font-size: 0.85rem; font-weight: 700; color: #fff;">Pedestrian Walk Signal</span>
+                </div>
+                <div id="pubWalkStatus" style="font-size: 0.8rem; font-weight: 600; color: var(--signal-green);">
+                    CROSSWALK CLEAR &bull; SAFE TO CROSS EAST-WEST
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Roadwork, Incident & Congestion Alerts -->
+    <div class="glass-panel" style="padding: 1.75rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Active Road Incidents & Commuter Advisories</h3>
+            <span style="font-size: 0.8rem; color: var(--accent-cyan); font-weight: 600;">Autonomous System Dispatches</span>
+        </div>
+        <div id="publicAlertsList">
+            <div style="color: var(--text-muted); font-size: 0.9rem; padding: 0.75rem 0;">Connecting to telemetry stream...</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    async function updatePublicStatus() {
+        try {
+            const res = await fetch('/api/traffic/live');
+            if (!res.ok) return;
+            const data = await res.json();
+
+            // Signal State & Countdown
+            const sig = data.signal || {};
+            const countdownEl = document.getElementById('pubCycleTimer');
+            if (countdownEl) countdownEl.innerText = `${sig.remaining_seconds || 0}s`;
+
+            const activePhaseEl = document.getElementById('pubActivePhase');
+            if (activePhaseEl) activePhaseEl.innerText = sig.active_direction || 'NORTH';
+
+            const nextPhaseEl = document.getElementById('pubNextPhase');
+            if (nextPhaseEl) nextPhaseEl.innerText = sig.next_direction || (sig.active_direction === 'NORTH' ? 'EAST' : 'NORTH');
+
+            // Walk Signal Update
+            const walkEl = document.getElementById('pubWalkStatus');
+            if (walkEl) {
+                if (sig.active_direction === 'NORTH' || sig.active_direction === 'SOUTH') {
+                    walkEl.innerHTML = '<span style="color: var(--signal-green);">WALK CLEAR &bull; Safe to cross East-West zebra lanes</span>';
+                } else {
+                    walkEl.innerHTML = '<span style="color: var(--signal-red);">DO NOT WALK &bull; North-South traffic has priority green</span>';
+                }
+            }
+
+            // Directional lights & stats
+            const signals = sig.signals || {};
+            ['NORTH', 'SOUTH', 'EAST', 'WEST'].forEach(d => {
+                const state = signals[d] || 'RED';
+                const redB = document.getElementById(`pubLight_${d}_red`);
+                const yelB = document.getElementById(`pubLight_${d}_yellow`);
+                const grnB = document.getElementById(`pubLight_${d}_green`);
+                const card = document.getElementById(`pubCard_${d}`);
+                const m = data.direction_metrics?.[d] || {};
+
+                if (redB) redB.className = `light-bulb red ${state === 'RED' ? 'active' : ''}`;
+                if (yelB) yelB.className = `light-bulb yellow ${state === 'YELLOW' ? 'active' : ''}`;
+                if (grnB) grnB.className = `light-bulb green ${state === 'GREEN' ? 'active' : ''}`;
+
+                if (card) {
+                    if (state === 'GREEN') card.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+                    else card.style.borderColor = 'var(--border-subtle)';
+                }
+
+                const lvlEl = document.getElementById(`pubLvl_${d}`);
+                if (lvlEl) {
+                    const lvl = m.density_level || 'LOW';
+                    lvlEl.innerText = lvl;
+                    lvlEl.className = `badge-density ${lvl}`;
+                }
+
+                const vehEl = document.getElementById(`pubVeh_${d}`);
+                if (vehEl) vehEl.innerText = m.count ?? 0;
+            });
+
+            // Alerts
+            const alertContainer = document.getElementById('publicAlertsList');
+            const alerts = data.active_alerts || [];
+            if (alerts.length === 0) {
+                alertContainer.innerHTML = '<div style="color: var(--accent-emerald); font-weight: 600; padding: 0.5rem 0;">✅ All routes operating smoothly. No bottlenecks or incidents reported on intersection corridors.</div>';
+            } else {
+                alertContainer.innerHTML = alerts.map(a => `
+                    <div style="background: rgba(255,255,255,0.03); border-left: 4px solid ${a.severity === 'CRITICAL' ? '#ef4444' : '#f59e0b'}; padding: 0.85rem 1rem; border-radius: 4px; margin-bottom: 0.6rem;">
+                        <strong style="color: #fff;">${a.direction} Corridor Alert:</strong> ${a.message}
+                    </div>
+                `).join('');
+            }
+        } catch(e) {}
+    }
+
+    updatePublicStatus();
+    setInterval(updatePublicStatus, 2000);
+</script>
+{% endblock %}

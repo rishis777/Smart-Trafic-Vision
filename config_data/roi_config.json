@@ -1,0 +1,85 @@
+{
+  "frame_width": 1280,
+  "frame_height": 720,
+  "lanes": {
+    "NORTH": {
+      "roi_polygon": [
+        [510, 20],
+        [640, 20],
+        [640, 205],
+        [510, 205]
+      ],
+      "counting_line": [
+        [510, 110],
+        [640, 110]
+      ],
+      "stop_line": [
+        [510, 200],
+        [640, 200]
+      ],
+      "allowed_direction": "DOWN"
+    },
+    "SOUTH": {
+      "roi_polygon": [
+        [640, 515],
+        [770, 515],
+        [770, 700],
+        [640, 700]
+      ],
+      "counting_line": [
+        [640, 610],
+        [770, 610]
+      ],
+      "stop_line": [
+        [640, 520],
+        [770, 520]
+      ],
+      "allowed_direction": "UP"
+    },
+    "EAST": {
+      "roi_polygon": [
+        [795, 230],
+        [1260, 230],
+        [1260, 360],
+        [795, 360]
+      ],
+      "counting_line": [
+        [1050, 230],
+        [1050, 360]
+      ],
+      "stop_line": [
+        [800, 230],
+        [800, 360]
+      ],
+      "allowed_direction": "LEFT"
+    },
+    "WEST": {
+      "roi_polygon": [
+        [20, 360],
+        [485, 360],
+        [485, 490],
+        [20, 490]
+      ],
+      "counting_line": [
+        [250, 360],
+        [250, 490]
+      ],
+      "stop_line": [
+        [480, 360],
+        [480, 490]
+      ],
+      "allowed_direction": "RIGHT"
+    }
+  },
+  "no_parking_zones": [
+    {
+      "name": "Zone_A_Bus_Stop",
+      "polygon": [
+        [120, 490],
+        [320, 490],
+        [320, 550],
+        [120, 550]
+      ]
+    }
+  ]
+}
